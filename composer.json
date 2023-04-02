@@ -1,0 +1,23 @@
+{
+    "name": "xy_jx/redis",
+    "description": "redis",
+    "require": {
+        "php": ">=7.2",
+        "ext-json": "*",
+        "ext-redis": "*"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "xy_jx\\Redis\\": "src"
+        }
+    },
+    "authors": [
+        {
+            "name": "xy_jx",
+            "email": "zhangschooi@qq.com"
+        }
+    ],
+    "minimum-stability": "dev"
+
+}
