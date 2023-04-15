@@ -2,9 +2,7 @@
     "name": "xy_jx/redis",
     "description": "redis",
     "require": {
-        "php": ">=7.2",
-        "ext-json": "*",
-        "ext-redis": "*"
+        "php": ">=7.2"
     },
     "license": "MIT",
     "autoload": {

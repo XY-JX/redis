@@ -4,7 +4,7 @@
 // +----------------------------------------------------------------------
 // | Author: xy <zhangschooi@qq.com>
 // +----------------------------------------------------------------------
-// | Notes:  PhpStorm RedisClient.php
+// | Notes: RedisClient.php
 // +----------------------------------------------------------------------
 namespace xy_jx\Redis\bin;
 class RedisClient extends \Redis

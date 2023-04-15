@@ -47,14 +47,7 @@ class xy
         if ($message = RedisQueue::consume()) {
             $data = json_decode($message, true);
             //业务代码
-            $isSuccess = function ($data) {
-                //业务代码
-                if (is_array($data)) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            };
+            $isSuccess = 1;
             if ($isSuccess) {//业务处理成功
                 //处理成功后删除消息
                 $RedisQueue->delData($message);

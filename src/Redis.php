@@ -4,7 +4,7 @@
 // +----------------------------------------------------------------------
 // | Author: xy <zhangschooi@qq.com>
 // +----------------------------------------------------------------------
-// | Notes:  PhpStorm Redis.php
+// | Notes: Redis.php
 // +----------------------------------------------------------------------
 namespace xy_jx\Redis;
 
@@ -36,14 +36,14 @@ class Redis
 
 
     /**
-     * 连接redis
+     * 创建一个redis对象
      * @param array $config
      * @return RedisClient
      */
     private static function connect(array $config): RedisClient
     {
         if (!extension_loaded('redis')) {
-            throw new \RuntimeException('Please make sure the PHP Redis extension is installed and enabled.');
+            throw new \RuntimeException('Please install the PHP Redis extension');
         }
 
         $redis = new RedisClient();

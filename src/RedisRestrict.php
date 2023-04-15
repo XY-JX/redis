@@ -4,7 +4,7 @@
 // +----------------------------------------------------------------------
 // | Author: xy <zhangschooi@qq.com>
 // +----------------------------------------------------------------------
-// | Notes:  PhpStorm RedisRestrict.php
+// | Notes: RedisRestrict.php
 // +----------------------------------------------------------------------
 namespace xy_jx\Redis;
 class RedisRestrict extends Redis

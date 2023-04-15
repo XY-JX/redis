@@ -4,7 +4,7 @@
 // +----------------------------------------------------------------------
 // | Author: xy <zhangschooi@qq.com>
 // +----------------------------------------------------------------------
-// | Notes:  PhpStorm RedisQueue.php
+// | Notes: RedisQueue.php
 // +----------------------------------------------------------------------
 namespace xy_jx\Redis;
 class RedisQueue extends Redis
@@ -57,7 +57,7 @@ class RedisQueue extends Redis
     }
 
     /**
-     * 设置队列名称
+     * 设置队列最大重试次数
      * @param int $maxRetry
      * @return bool
      */
@@ -74,11 +74,13 @@ class RedisQueue extends Redis
      * 发送消息
      * @param array $data
      * @param int $delay
+     * @param null $queue
      * @return mixed
      */
 
-    public static function send(array $data, int $delay = 0)
+    public static function send(array $data, int $delay = 0, $queue = null)
     {
+        empty($queue) && $queue = self::$queue;
         $time = time();
         $packageStr = json_encode([
             'id' => $time . rand(),
@@ -88,9 +90,9 @@ class RedisQueue extends Redis
             'queue' => self::$queue,
             'data' => $data
         ]);
-        if ($delay) return parent::execCommand('zAdd', self::QUEUE_DELAY . self::$queue, $time + $delay, $packageStr);
+        if ($delay) return parent::execCommand('zAdd', self::QUEUE_DELAY . $queue, $time + $delay, $packageStr);
 
-        return parent::execCommand('lPush', self::QUEUE_WAITING . self::$queue, $packageStr);
+        return parent::execCommand('lPush', self::QUEUE_WAITING . $queue, $packageStr);
     }
 
     /**
@@ -124,7 +126,12 @@ class RedisQueue extends Redis
         if (($data['try'] += 1) > self::$maxRetry) {
             return self::delData($message, $queue);
         } else {
-            return parent::execCommand('multi')->execCommand('lPush', self::QUEUE_WAITING . $queue, json_encode(array_merge($data, ['try' => $data['try']])))->execCommand('lRem', self::QUEUE_CONSUME . $queue, $message, 0)->execCommand('exec') ? 1 : false;
+            $delay = $data['try'] * 15;
+            return parent::execCommand('multi')
+                ->execCommand('zAdd', self::QUEUE_DELAY . $queue, time() + $delay, json_encode(array_merge($data, ['try' => $data['try']])))
+                ->execCommand('lRem', self::QUEUE_CONSUME . $queue, $message, 0)
+                ->execCommand('exec')
+                ? 1 : false;
         }
     }
 
