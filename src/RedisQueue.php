@@ -34,14 +34,6 @@ class RedisQueue extends Redis
      */
     private static $maxRetry = 3;
 
-    public function __construct(array $config = [], string $queue = null)
-    {
-        parent::__construct($config);
-        if (!empty($queue)) {
-            self::$queue = $queue;
-        }
-    }
-
     /**
      * 设置队列名称
      * @param string|null $queue
@@ -61,7 +53,7 @@ class RedisQueue extends Redis
      * @param int $maxRetry
      * @return bool
      */
-    public static function setMaxRetry(int $maxRetry = 0): bool
+    public static function setMaxRetry(int $maxRetry = 3): bool
     {
         if (!empty($maxRetry)) {
             self::$maxRetry = $maxRetry;
