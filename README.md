@@ -2,25 +2,39 @@
 
 ## 一个简单的示例
 
-## 安装
-
-第一步：
+### 第一步：composer安装
 
 ```
  composer require xy_jx/redis
 ```
 
-第二步：
+### 第二步使用：
+#### redis基本使用
+```
+use xy_jx\Redis\Redis;
+
+  //redis 配置
+        $config = [
+            'host' => '127.0.0.1',
+            'port' => 6379,
+            'password' => '',
+            'select' => 0,
+            'timeout' => 0,
+            'expire' => 0,
+            'prefix' => 'key_da',//前缀
+        ];
+   $redis = new  Redis($config);
+      $redis->set('aaaa',11111);
+      echo $redis->get('aaaa').PHP_EOL;//11111
+      echo Redis::get('aaaa');//11111
 
 ```
+#### redis队列
+```
 <?php
-use xy_jx\Redis\Redis;
+
 use xy_jx\Redis\RedisQueue;
 
-
-class xy
-{
-  
         //redis 配置
         $config = [
             'host' => '127.0.0.1',
@@ -56,12 +70,5 @@ class xy
                 $RedisQueue->retryData($message, $data);
             }
         }
-        
-       //redis 使用
-      $redis = new  Redis($config);
-      $redis->set('aaaa',11111);
-      echo $redis->get('aaaa').PHP_EOL;
-      echo Redis::get('aaaa');
-      
-}
+
 ```
