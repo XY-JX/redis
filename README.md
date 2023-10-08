@@ -1,4 +1,4 @@
-<h2><p align="center">redis</p></h2>
+<h1><p align="center">redis</p></h1>
 
 ### 第一步：composer安装
 
