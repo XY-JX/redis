@@ -1,6 +1,4 @@
-# xy
-
-## 一个简单的示例
+<h2><p align="center">redis</p></h2>
 
 ### 第一步：composer安装
 
