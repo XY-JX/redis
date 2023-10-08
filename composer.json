@@ -2,7 +2,7 @@
     "name": "xy_jx/redis",
     "description": "redis",
     "require": {
-        "php": ">=7.2"
+        "php": ">=7.3"
     },
     "license": "MIT",
     "autoload": {

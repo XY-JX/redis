@@ -1,4 +1,10 @@
-<h1><p align="center">redis</p></h1>
+<h1 align="center">redis</h1>
+
+[![Latest Stable Version](http://poser.pugx.org/xy_jx/redis/v)](https://packagist.org/packages/xy_jx/redis) 
+[![Total Downloads](http://poser.pugx.org/xy_jx/redis/downloads)](https://packagist.org/packages/xy_jx/redis)
+[![Latest Unstable Version](http://poser.pugx.org/xy_jx/redis/v/unstable)](https://packagist.org/packages/xy_jx/redis) 
+[![License](http://poser.pugx.org/xy_jx/redis/license)](https://packagist.org/packages/xy_jx/redis) 
+[![PHP Version Require](http://poser.pugx.org/xy_jx/redis/require/php)](https://packagist.org/packages/xy_jx/redis)
 
 ### 第一步：composer安装
 
