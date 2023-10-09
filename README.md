@@ -33,6 +33,23 @@ use xy_jx\Redis\Redis;
       echo Redis::get('aaaa');//11111
 
 ```
+#### redis访问限制
+```
+use xy_jx\Redis\RedisRestrict;
+
+$redis = new RedisRestrict(
+    [
+        'host' => '127.0.0.1',
+        'port' => 6379,
+        'password' => '',
+    ]
+);
+if ($redis::restrict('aaaaaaaaaaaaaaa', 3, 'm')) {
+    echo '正常';
+} else {
+    echo '限流拉';
+}
+```
 #### redis队列
 ```
 <?php

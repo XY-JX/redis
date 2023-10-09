@@ -14,23 +14,30 @@ class RedisRestrict extends Redis
         'm' => 60,
         'h' => 3600,
         'd' => 86400,
+        'lock' => 3,
     ];
 
     /**
      * 访问限制
      * @param string $key ip|uid
      * @param int $limit 限制次数
-     * @param string $time 时间范围 s m h d
+     * @param string|int $time 时间范围 s m h d
      * @return bool
      */
-    public static function restrict(string $key, int $limit = 3, string $time = 's'): bool
+    public static function restrict(string $key, int $limit = 3, $time = 's'): bool
     {
         $key = 'throttle_restrict:' . $key;
-        if (parent::execCommand('get', $key)) {
-            if (parent::execCommand('incr', $key) > $limit) return false; //键值递增,大于限制
-        } else {
-            parent::execCommand('set', $key, 1, ['nx', 'ex' => self::$duration[$time]]);
+        //判断是否大于大于限制
+        if (($newVal = parent::execCommand('incr', $key)) > $limit) {
+            return false; //键值递增,大于限制
         }
+        if (1 === $newVal) {  //第一次设置过期时间
+            //如果是int就是视为过期时间秒
+            $ttl = is_int($time) ? $time : (self::$duration[$time] ?? 1);
+            //设置过期时间
+            parent::execCommand('expire', $key, $ttl);
+        }
+
         return true;
     }
 
