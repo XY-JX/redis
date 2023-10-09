@@ -9,13 +9,15 @@
 namespace xy_jx\Redis;
 class RedisRestrict extends Redis
 {
-    private static $duration = [
+    public static $duration = [
         's' => 1,
         'm' => 60,
         'h' => 3600,
         'd' => 86400,
         'lock' => 3,
     ];
+
+    public static $restrictKey = 'throttle_restrict:';
 
     /**
      * 访问限制
@@ -26,7 +28,7 @@ class RedisRestrict extends Redis
      */
     public static function restrict(string $key, int $limit = 3, $time = 's'): bool
     {
-        $key = 'throttle_restrict:' . $key;
+        $key = self::$restrictKey . $key;
         //判断是否大于大于限制
         if (($newVal = parent::execCommand('incr', $key)) > $limit) {
             return false; //键值递增,大于限制
