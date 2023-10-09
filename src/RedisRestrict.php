@@ -33,7 +33,7 @@ class RedisRestrict extends Redis
         }
         if (1 === $newVal) {  //第一次设置过期时间
             //如果是int就是视为过期时间秒
-            $ttl = is_int($time) ? $time : (self::$duration[$time] ?? 1);
+            $ttl = is_int($time) ? $time : (self::$duration[$time] ?? reset(self::$duration));
             //设置过期时间
             parent::execCommand('expire', $key, $ttl);
         }
